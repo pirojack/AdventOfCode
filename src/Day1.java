@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sonar {
+public class Day1 {
 
     public static Integer solution (List<Integer> listWithSums) {
         int measurement = 0;
         for (int i = 1; i < listWithSums.size();i++ ) {
             Integer next = listWithSums.get(i);
             Integer previous = listWithSums.get(i-1);
-            if( next > previous) measurement++;
+            if(next.compareTo(previous) > 0) measurement++;
         }
         return measurement;
     }
