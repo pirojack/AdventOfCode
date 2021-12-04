@@ -1,3 +1,9 @@
 # Default ignored files
+/src/AdventOfCode.iml
+/out/
+/vcs.xml
+/runConfigurations.xml
+/modules.xml
+/misc.xml
 /shelf/
 /workspace.xml
