@@ -11,8 +11,8 @@ public class Day3_2 {
         index = 0;
         String CO2 = Rating("notOxygen",args);
 
-        int oxygenRate = Integer.parseInt(oxygen,2);
-        int co2Rate = Integer.parseInt(CO2,2);
+        Integer oxygenRate = Integer.parseInt(oxygen,2);
+        Integer co2Rate = Integer.parseInt(CO2,2);
 
         System.out.println(oxygenRate*co2Rate);
 
