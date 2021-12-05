@@ -3,7 +3,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
-public class Day4_1 {
+public class Day4_1_2 {
 
     static HashMap<Integer,BingoBoard> Boards = new HashMap<>();
     static List<Integer> calledNumbers = new ArrayList<>();
@@ -11,7 +11,7 @@ public class Day4_1 {
 
     static void parseInput() throws Exception {
 
-        File file = new File("src\\Day4_1.txt");
+        File file = new File("src\\Day4_input.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         String st;
@@ -106,7 +106,38 @@ public class Day4_1 {
         return null;
     }
 
-    static Integer scoreCalculating(Integer key){
+    static Integer markAndCheckAll(){
+        boolean foundBoard = false;
+        Integer key = 0;
+        for(Integer number : calledNumbers){
+            for (HashMap.Entry<Integer,BingoBoard> board : Boards.entrySet()){
+
+                markGrid(board.getValue(),number);
+
+                if(isBingoVertical(board.getValue()) || isBingoHorizontal(board.getValue())) {
+                    board.getValue().bingoOnBoard = true;
+                }
+                Integer countBingoBoards = 0;
+                for (HashMap.Entry<Integer,BingoBoard> board2 : Boards.entrySet()){
+                    if(board2.getValue().bingoOnBoard) countBingoBoards++;
+                }
+                if(Boards.size()-1 == countBingoBoards && !foundBoard){
+                    for (HashMap.Entry<Integer,BingoBoard> board3 : Boards.entrySet()){
+                        if(!board3.getValue().bingoOnBoard) {
+                            foundBoard = true;
+                            key = board3.getKey();                        }
+                    }
+                }
+                if(Boards.size() == countBingoBoards){
+                    finalCallNumber = number;
+                    return key;
+                }
+            }
+        }
+        return null;
+    }
+
+    static Integer scoreCalculating (Integer key){
         Integer sum = 0;
         for(int i=0;i<5;i++){
             for(int j = 0;j<5;j++){
@@ -125,13 +156,24 @@ public class Day4_1 {
         Integer key = markAndCheck();
 
         if(key==null) System.out.println("There is no bingo");
-        else System.out.println(" Final Score:" + scoreCalculating(key));
+        else System.out.println("First Final Score:" + scoreCalculating(key));
+
+        main2();
+
     }
+
+    public static void main2() {
+        Integer key = markAndCheckAll();
+        System.out.println("Second Final Score:" + scoreCalculating(key));
+    }
+
 }
 
 class BingoBoard {
 
     List<List<Grid>> board = new ArrayList<>();
+
+    boolean bingoOnBoard = false;
 
     void makeBoard(List<String> boardLines){
 
