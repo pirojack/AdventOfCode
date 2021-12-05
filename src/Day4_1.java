@@ -124,7 +124,8 @@ public class Day4_1 {
         //marking and check for bingo and get the key for bingoboard
         Integer key = markAndCheck();
 
-        System.out.println(" Final Score:" + scoreCalculating(key));
+        if(key==null) System.out.println("There is no bingo");
+        else System.out.println(" Final Score:" + scoreCalculating(key));
     }
 }
 
